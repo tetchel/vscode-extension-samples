@@ -288,7 +288,11 @@ export class FileSystemProvider implements vscode.TreeDataProvider<Entry>, vscod
 	getTreeItem(element: Entry): vscode.TreeItem {
 		const treeItem = new vscode.TreeItem(element.uri, element.type === vscode.FileType.Directory ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None);
 		if (element.type === vscode.FileType.File) {
-			treeItem.command = { command: 'fileExplorer.openFile', title: "Open File", arguments: [element.uri], };
+			// treeItem.command = { command: 'fileExplorer.openFile', title: "Open File", arguments: [element.uri], };
+			const circularObj: any = {};
+			const obj2 = { a: circularObj };
+			circularObj.a = obj2;
+			treeItem.command = { command: 'fileExplorer.openFile', title: "Open File", arguments: [ circularObj ] };
 			treeItem.contextValue = 'file';
 		}
 		return treeItem;
@@ -305,7 +309,11 @@ export class FileExplorer {
 		vscode.commands.registerCommand('fileExplorer.openFile', (resource) => this.openResource(resource));
 	}
 
-	private openResource(resource: vscode.Uri): void {
+	private openResource(resource: vscode.Uri | undefined): void {
+		if (resource == null) {
+			vscode.window.showErrorMessage("No URI was passed to be opened");
+			return;
+		}
 		vscode.window.showTextDocument(resource);
 	}
 }

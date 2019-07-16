@@ -14,8 +14,6 @@ This sample provides following views
 
 Following example shows Node dependencies view in Package Explorer View container.
 
-![Package Explorer](./resources/package-explorer.png)
-
 ## VS Code API
 
 This sample uses following contribution points, activation events and APIs
@@ -38,8 +36,6 @@ This sample uses following contribution points, activation events and APIs
 - `window.registerTreeDataProvider`
 - `TreeView`
 - `TreeDataProvider`
-
-Refer to [Usage](./USAGE.md) document for more details.
 
 ## Running the Sample
 
